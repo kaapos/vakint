@@ -2203,15 +2203,16 @@ impl VakintTerm {
             Template::parse_template(TEMPLATES.get("run_tensor_reduction.txt").unwrap()).unwrap();
 
         // Replace functions with 1 and get all remaining symbols
-        let mut numerator_additional_symbols = Pattern::parse("f_(args__)")
-            .unwrap()
-            .replace_all(
-                form_numerator.as_view(),
-                &Atom::parse("1").unwrap().into_pattern().into(),
-                None,
-                None,
-            )
-            .get_all_symbols(false);
+        // let mut numerator_additional_symbols = Pattern::parse("f_(args__)")
+        //     .unwrap()
+        //     .replace_all(
+        //         form_numerator.as_view(),
+        //         &Atom::parse("1").unwrap().into_pattern().into(),
+        //         None,
+        //         None,
+        //     )
+        //     .get_all_symbols(false);
+        let mut numerator_additional_symbols = self.numerator.get_all_symbols(false);
         let eps_symbol = State::get_symbol(vakint.settings.epsilon_symbol.clone());
         numerator_additional_symbols.retain(|&s| s != eps_symbol);
 
